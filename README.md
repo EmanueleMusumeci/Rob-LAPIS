@@ -317,17 +317,6 @@ Ensure `third-party/VAL/validate` exists and is executable.
 **CPDDL static analysis fails:**
 Requires Singularity/Apptainer. The container is in `third-party/cpddl/cpddl_latest.sif`.
 
-## Citation
-
-```bibtex
-@inproceedings{musumeci2026roblapis,
-  title={Rob-LAPI(S)2: Language to Action Planning via Iterative Schema Synthesis for Household Robotic Tasks},
-  author={Musumeci, Emanuele and Drid, Abdel Hakim and Suriani, Vincenzo and Nardi, Daniele},
-  booktitle={Proceedings of the International Conference on Automated Planning and Scheduling (ICAPS)},
-  year={2026}
-}
-```
-
 ## License
 
 MIT License
