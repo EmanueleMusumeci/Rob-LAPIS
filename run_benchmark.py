@@ -240,9 +240,12 @@ def main():
 
     from src.lapis.agents.gpt import GPTAgent
     from src.lapis.agents.claude import ClaudeAgent
+    from src.lapis.agents.gemini import GeminiAgent
 
     if args.model.startswith("claude"):
         agent = ClaudeAgent(model=args.model)
+    elif args.model.startswith("gemini"):
+        agent = GeminiAgent(model=args.model)
     else:
         agent = GPTAgent(model=args.model)
 

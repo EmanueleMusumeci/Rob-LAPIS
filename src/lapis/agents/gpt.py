@@ -1,6 +1,5 @@
 from openai import OpenAI
 import os
-import torch
 from src.lapis.agents.agent import Agent
 from typing import Optional
 
@@ -27,7 +26,11 @@ class GPTAgent(Agent):
 
     def reset(self):
         self.prompt_chain = []
-        torch.cuda.empty_cache()
+        try:
+            import torch
+            torch.cuda.empty_cache()
+        except ImportError:
+            pass
 
     def llm_call(self, content: str, prompt: str, temperature=None, top_p=None):
         messages = [

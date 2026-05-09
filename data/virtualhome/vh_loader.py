@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 # Source of GT PDDL problems — pre-processed from EAI benchmark
-_DATA_ROOT = Path(__file__).parent.parent.parent / "final_results" / "vh2_gen_domain"
+_DATA_ROOT = Path(__file__).parent / "tasks"
 
 NL_TASKS = {
     "Browse_internet":              "Sit at the computer and browse the internet.",

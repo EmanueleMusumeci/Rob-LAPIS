@@ -14,6 +14,8 @@
   physical-object
   rtype
   otype
+  toggleable
+  switchable
   )
 
  (:constants
@@ -44,11 +46,11 @@
     (full ?r - receptacle)                                    ; true if the receptacle has no remaining space
     (isClean ?o - physical-object)                                     ; true if the object has been clean in sink
     (cleanable ?o - physical-object)                                   ; true if the object can be placed in a sink
-    (isHot ?o - physical-object)                                       ; true if the object has been heated up
-    (heatable ?o - physical-object)                                    ; true if the object can be heated up in a microwave
+    (isHot ?o - physical-object)                                       ; true if the object has been heated up_dir
+    (heatable ?o - physical-object)                                    ; true if the object can be heated up_dir in a microwave
     (isCool ?o - physical-object)                                      ; true if the object has been cooled
     (coolable ?o - physical-object)                                    ; true if the object can be cooled in the fridge
-    (pickupable ?o - physical-object)                                   ; true if the object can be picked up
+    (pickupable ?o - physical-object)                                   ; true if the object can be picked up_dir
     (moveable ?o - physical-object)                                      ; true if the object can be moved
     (toggleable ?o - physical-object)                                  ; true if the object can be turned on/off
     (isOn ?o - physical-object)                                        ; true if the object is on
@@ -58,7 +60,7 @@
  )
 
   (:functions
-    (distance ?from ?to)
+    (distance ?from - location ?to - location)
     (total-cost) - number
    )
 
@@ -183,7 +185,7 @@
 
  )
 
- ;; agent picks up object from a receptacle
+ ;; agent picks up_dir object from a receptacle
  (:action PickupObject
     :parameters (?a - agent ?l - location ?o - physical-object ?r - receptacle)
     :precondition
@@ -210,7 +212,7 @@
  )
 
 
-; ;; agent picks up object from a receptacle
+; ;; agent picks up_dir object from a receptacle
 ; (:action PickupObjectFromReceptacleObject
 ;    :parameters (?a - agent ?l - location ?o - physical-object ?outerR - physical-object ?r - receptacle)
 ;    :precondition
@@ -240,7 +242,7 @@
 ;        )
 ; )
 ;
-; ;; agent picks up object from a receptacle
+; ;; agent picks up_dir object from a receptacle
 ; (:action PickupEmptyReceptacleObject
 ;    :parameters (?a - agent ?l - location ?o - physical-object ?r - receptacle)
 ;    :precondition
@@ -268,7 +270,7 @@
 ;        )
 ; )
 ;
-; ;; agent picks up object from a receptacle
+; ;; agent picks up_dir object from a receptacle
 ; (:action PickupFullReceptacleObject
 ;    :parameters (?a - agent ?l - location ?o - physical-object ?outerR - physical-object ?r - receptacle)
 ;    :precondition
@@ -418,7 +420,7 @@
  )
 
 
-;; agent heats-up some object
+;; agent heats-up_dir some object
  (:action HeatObject
     :parameters (?a - agent ?l - location ?r - receptacle ?o - physical-object)
     :precondition (and
@@ -459,12 +461,11 @@
 
 ;; agent toggle object
  (:action ToggleObject
-    :parameters (?a - agent ?l - location ?o - physical-object ?r - receptacle)
+    :parameters (?a - agent ?l - location ?o - toggleable)
     :precondition (and
             (toggleable ?o)
             (atLocation ?a ?l)
-            (receptacleAtLocation ?r ?l)
-            (inReceptacle ?o ?r)
+            (objectAtLocation ?o ?l)
             )
     :effect (and
                 (increase (total-cost) 5)
@@ -488,8 +489,8 @@
                     (objectType ?ko ButterKnifeType)
                 )
                 (atLocation ?a ?l)
-                (objectAtLocation ?co ?l)
                 (holds ?a ?ko)
+                (holds ?a ?co)
             )
     :effect (and
                 (increase (total-cost) 5)
